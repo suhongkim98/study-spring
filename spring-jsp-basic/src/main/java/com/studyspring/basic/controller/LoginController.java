@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.studyspring.basic.controller.dto.RegisterRequestDTO;
+import com.studyspring.basic.exception.LoginFailedException;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-	@GetMapping()
+	@GetMapping
 	public ModelAndView loginPage() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login");
@@ -26,7 +27,8 @@ public class LoginController {
 	@PostMapping("/loginRequest")
 	public ModelAndView loginRequest() {
 		ModelAndView mav = new ModelAndView();
-		return mav;
+		throw new LoginFailedException();
+		//return mav;
 	}
 	@PostMapping("/registerRequest")
 	public ModelAndView registerRequest(RegisterRequestDTO registerRequestDTO) {

@@ -12,7 +12,7 @@
 <body class="background-wrapper">
 <div class="header-wrapper"><span>SSONGK CRUD</span></div>
 <div class="body-wrapper">
-	<form class="login-wrapper">
+	<form class="login-wrapper" action="/basic/login/loginRequest" method="post">
 		<div class="login-header-wrapper"><span>LOGIN</span></div>
 		<div class="login-body-wrapper">
 			<input type="text" class="grid-item" name="memId" />
