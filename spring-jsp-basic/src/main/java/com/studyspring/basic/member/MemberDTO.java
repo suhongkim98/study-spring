@@ -3,10 +3,19 @@ package com.studyspring.basic.member;
 import com.studyspring.basic.core.Role;
 
 public class MemberDTO {
+	private int idx;
 	private String memberName;
 	private String memberId;
 	private String memberPassword;
 	private Role role;
+	
+	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getMemberName() {
 		return memberName;
 	}
