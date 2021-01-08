@@ -9,7 +9,13 @@ public class MemberDTO {
 	private String memberPassword;
 	private Role role;
 	
-	
+	public MemberDTO(String id, String password) {
+		this.memberId = id;
+		this.memberPassword = password;
+	}
+	public MemberDTO() {
+		
+	}
 	public int getIdx() {
 		return idx;
 	}

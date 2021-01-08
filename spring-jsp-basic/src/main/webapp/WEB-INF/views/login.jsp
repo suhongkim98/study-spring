@@ -15,8 +15,8 @@
 	<form class="login-wrapper" action="/basic/login/loginRequest" method="post">
 		<div class="login-header-wrapper"><span>LOGIN</span></div>
 		<div class="login-body-wrapper">
-			<input type="text" class="grid-item" name="memId" />
-			<input type="password" class="grid-item" name="memPassword" />
+			<input type="text" class="grid-item" name="memberId" />
+			<input type="password" class="grid-item" name="memberPassword" />
 			<button class="grid-item"><span>로그인</span></button>
 		</div>
 		<div class="login-footer-wrapper"><a href="/basic/login/register"><span>회원가입</span></a></div>

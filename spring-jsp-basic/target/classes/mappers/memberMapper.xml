@@ -11,7 +11,7 @@
 	</resultMap>
 	
 	<select id="selectMember" parameterType="string" resultMap="memberMap">
-		SELECT * FROM MEMBER_TB WHERE ID=#{value}
+		SELECT * FROM MEMBER_TB WHERE ID=#{value};
 	</select>
 	
 	<!-- select 쿼리 (ALL) -->
@@ -19,8 +19,12 @@
 		SELECT * FROM MEMBER_TB;
 	</select>
 	
+	<select id="validMember" parameterType="memberDTO" resultMap="memberMap">
+		SELECT * FROM MEMBER_TB WHERE ID=#{memberId} AND PASSWORD=#{memberPassword};
+	</select>
+	
 	<!--  insert 쿼리 -->
-	<insert id="insertMember" parameterType="memberDTO">
-		INSERT INTO MEMBER_TB VALUES(#{memberId}, #{memberPassword});
+	<insert id="insertMember" parameterType="memberDTO" useGeneratedKeys="true" keyProperty="idx" keyColumn="IDX" >
+		INSERT INTO MEMBER_TB(NAME, ID, PASSWORD, ROLE) VALUES(#{memberName}, #{memberId}, #{memberPassword}, #{role});
 	</insert>
 </mapper>

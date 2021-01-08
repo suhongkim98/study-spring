@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 		.message(e.getMessage())
 		.status(ErrorCode.AUTHENTICATION_FAILED.getStatus());
 		
-		mav.setViewName("/");
+		mav.setViewName("redirect:/");
 		mav.addObject("exception", errorResponse);
 		return mav;
 	}
@@ -36,7 +36,23 @@ public class GlobalExceptionHandler {
 		.message(e.getMessage())
 		.status(ErrorCode.LOGIN_FAILED.getStatus());
 		
-		mav.setViewName("/login");
+		mav.setViewName("login");
+		mav.addObject("exception", errorResponse);
+		return mav;
+	}
+	
+	@ResponseStatus(HttpStatus.CONFLICT)
+	@ExceptionHandler(RegisterFailedException.class)
+	protected ModelAndView handleRegisterFailedException(RegisterFailedException e) {
+		ModelAndView mav = new ModelAndView();
+		
+		ErrorResponse errorResponse
+		= ErrorResponse.create()
+		.code(ErrorCode.REGISTER_FAILED.getCode())
+		.message(e.getMessage())
+		.status(ErrorCode.REGISTER_FAILED.getStatus());
+		
+		mav.setViewName("register");
 		mav.addObject("exception", errorResponse);
 		return mav;
 	}

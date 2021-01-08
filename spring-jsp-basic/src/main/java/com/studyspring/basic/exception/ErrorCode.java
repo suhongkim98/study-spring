@@ -3,7 +3,8 @@ package com.studyspring.basic.exception;
 public enum ErrorCode {
 	
 	AUTHENTICATION_FAILED(401, "AUTH_001", " AUTHENTICATION_FAILED."),
-    LOGIN_FAILED(401, "AUTH_002", " LOGIN_FAILED.");
+    LOGIN_FAILED(401, "AUTH_002", " LOGIN_FAILED."),
+	REGISTER_FAILED(409, "AUTH_003", "REGISTER_FAILD");
 	
 	private final String code;
 	private final String message;
