@@ -1,0 +1,2 @@
+# spring-jsp-basic mysql 계정 정보 등 프로퍼티 정보 무시
+spring-jsp-basic/src/main/resources/properties/**
