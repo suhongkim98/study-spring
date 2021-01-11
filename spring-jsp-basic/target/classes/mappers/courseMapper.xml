@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="courseTable">
+
+	<resultMap type="courseDTO" id="courseMap">
+		<id column="IDX" property="idx" /> <!-- pk는 id로 -->
+		<result column="TITLE" property="title" />
+		<result column="CREATED_DATE" property="date" />
+		<collection property="member" resultMap="memberInCourseMap" />
+	</resultMap>
+
+	<resultMap type="memberDTO" id="memberInCourseMap">
+		<result column="MEMBER_IDX" property="idx" />
+		<result column="NAME" property="memberName" />
+	</resultMap>
+	
+		<!-- select 쿼리 (ALL) -->
+	<select id="selectCourseAll" resultMap="courseMap">
+		SELECT C_TB.IDX AS IDX, TITLE, CREATED_DATE, M_TB.NAME,M_TB.IDX AS MEMBER_IDX 
+		FROM COURSE_TB AS C_TB 
+		JOIN MEMBER_TB AS M_TB ON C_TB.CREATE_USER_IDX = M_TB.IDX;
+	</select>
+	<!--  insert 쿼리 -->
+	<insert id="insertCourse" parameterType="courseDTO" useGeneratedKeys="true" keyProperty="idx" keyColumn="IDX" >
+		INSERT INTO COURSE_TB(TITLE, CREATE_USER_IDX) VALUES(#{title}, #{member.idx});
+	</insert>
+</mapper>

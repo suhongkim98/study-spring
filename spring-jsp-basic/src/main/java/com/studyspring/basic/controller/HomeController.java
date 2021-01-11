@@ -1,45 +1,58 @@
 package com.studyspring.basic.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.studyspring.basic.core.Role;
 import com.studyspring.basic.member.MemberDTO;
-import com.studyspring.basic.member.MemberService;
+import com.studyspring.basic.provider.dto.CourseDTO;
+import com.studyspring.basic.provider.service.CourseService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired
-	private MemberService memberService;
+	private CourseService courseService;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	@GetMapping("/")
+	public ModelAndView home(HttpSession session) {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		ModelAndView mav = new ModelAndView();
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		mav.setViewName("home");
+		mav.addObject("member",member);
 		
-		String formattedDate = dateFormat.format(date);
+		return mav;
+	}
+	@GetMapping("/testdb")
+	public ModelAndView testdb() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("home");
 		
-		model.addAttribute("serverTime", formattedDate );
+		CourseDTO course = courseService.registerCourse("test", 6).orElseGet(() -> null);
+		if(course != null) {
+			System.out.println(course.getTitle());
+		}
+		return mav;
+	}
+	@GetMapping("/selecttest")
+	public ModelAndView selecttest() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("home");
 		
-		return "home";
+		List<CourseDTO> courses = courseService.selectAll().orElseGet(() -> null);
+		if(courses != null) {
+			for(int i = 0 ; i < courses.size() ; i++) {
+				System.out.println(courses.get(i).getMember().getIdx());
+			}
+		}
+		return mav;
 	}
 }

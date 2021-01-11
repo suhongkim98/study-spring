@@ -24,7 +24,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		response.sendRedirect(request.getContextPath() + "/login");
-		System.out.println("세션 member 없음, 통과X, 리다이렉트 " + request.getContextPath() + "/");
+		System.out.println("세션 member 없음, 통과X, 리다이렉트 " + request.getContextPath() + "/login");
 		return false;
 	}
 	

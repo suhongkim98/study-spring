@@ -18,6 +18,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		// TODO Auto-generated method stub
 		registry.addInterceptor(authInterceptor)
 		.addPathPatterns("/**")
+		.excludePathPatterns("/resources/**") //리소스는 접근가능하게 (css)
 		.excludePathPatterns("/login/**");
 	}
 	
