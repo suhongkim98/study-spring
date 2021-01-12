@@ -19,6 +19,14 @@
 	</div>
 	<div class="main-wrapper grid-item">
 		<span id="show-course-title">강좌 전체 보기</span>
+		<c:forEach items="${courses}" var="course">
+		<a href="/basic/course?courseIdx=${course.getIdx()}" style="text-decoration: none;">
+		<div class="course-item">
+			<div class="course-box"><span class="course-box-title">자율강좌</span></div>
+			<span class="course-item-title">${course.getTitle()}</span>
+		</div>
+		</a>
+    	</c:forEach>
 	</div>
 </body>
 </html>
