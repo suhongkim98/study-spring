@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardTable">
+	<resultMap type="boardDTO" id="boardMap">
+		<id column="IDX" property="idx" />
+		<result column="DATE" property="date" />
+		<result column="COURSE_IDX" property="courseIdx" />
+		<result column="VIEWS" property="views" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<collection property="member" resultMap="memberInBoardMap" />
+	</resultMap>
+	<resultMap type="memberDTO" id="memberInBoardMap">
+		<result column="MEMBER_NAME" property="memberName" />
+	</resultMap>
+	
+	<select id="selectBoard" parameterType="int" resultMap="boardMap">
+		SELECT BTB.IDX, BTB.DATE, BTB.COURSE_IDX, BTB.VIEWS, BTB.TITLE, BTB.CONTENT, MTB.NAME AS MEMBER_NAME
+		FROM BOARD_TB BTB 
+		JOIN MEMBER_TB MTB ON MTB.IDX = BTB.OWNER_IDX 
+		WHERE COURSE_IDX = #{courseIdx};
+	</select>
+	<insert id="insertBoard" parameterType="boardDTO" useGeneratedKeys="true" keyProperty="idx" keyColumn="IDX" >
+	</insert>
+</mapper>

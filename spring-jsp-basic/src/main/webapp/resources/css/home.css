@@ -59,6 +59,54 @@
 	background-color: #ECECEC;
 	padding: 30px 50px 0 50px;
 }
+.main-wrapper .main-inner-background {
+	height: 100%;
+	background-color: white;
+}
+.main-inner-background .write-board-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #020043;
+	color: white;
+	width: 70px;
+	height: 40px;
+	font-size: 1.4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.board-header {
+	height: 40px;
+	background-color: #EEEEEE;
+	border: solid gray 1px;
+}
+.board-header span {
+	font-weight: 700;
+}
+.board-item {
+	height: 40px;
+	border-bottom: solid gray 1px;
+}
+.button {
+	text-decoration: none;
+	color: black;
+}
+.button:hover{
+	color: red;
+}
+.board-grid {
+	display: grid;
+	grid-template-columns: 100px 1fr 100px 100px 100px;
+	align-items: center;
+}
+.board-grid span {
+	text-align: center;
+	font-size: 1.4rem;
+}
+.board-grid span:nth-child(2) {
+	text-align: left;
+}
 #show-course-title{
 	display: inline-block;
 	font-weight: 700;

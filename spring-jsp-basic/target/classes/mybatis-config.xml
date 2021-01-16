@@ -5,5 +5,7 @@
 	<typeAliases>
 		<typeAlias alias="memberDTO" type="com.studyspring.basic.member.MemberDTO" />
 		<typeAlias alias="courseDTO" type="com.studyspring.basic.provider.dto.CourseDTO" />
+		<typeAlias alias="boardDTO" type="com.studyspring.basic.provider.dto.BoardDTO" />
+		<typeAlias alias="boardCommentDTO" type="com.studyspring.basic.provider.dto.BoardCommentDTO" />
 	</typeAliases>
 </configuration>

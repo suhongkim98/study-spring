@@ -19,9 +19,8 @@ public class CourseService implements CourseServiceInterface{
 		this.courseDAO = courseDAO;
 	}
 	@Override
-	public Optional<CourseDTO> registerCourse(String title, int memberIdx) {
-		CourseDTO course = courseDAO.insert(title, memberIdx);
-		return Optional.ofNullable(course);
+	public void registerCourse(String title, int memberIdx) {
+		courseDAO.insert(title, memberIdx);
 	}
 
 	@Override

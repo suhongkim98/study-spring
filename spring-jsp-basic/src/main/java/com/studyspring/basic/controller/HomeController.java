@@ -30,30 +30,7 @@ public class HomeController {
 		
 		mav.setViewName("home");
 		mav.addObject("member",member);
-		if(courses != null) {
-			mav.addObject("courses", courses);
-		}
-		return mav;
-	}
-	@GetMapping("/course")
-	public ModelAndView course(HttpSession session, @RequestParam("courseIdx") int courseIdx) {
-		MemberDTO member = (MemberDTO) session.getAttribute("member");
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("course");
-		mav.addObject("member",member);
-		mav.addObject("courseIdx",courseIdx);
-		return mav;
-	}
-	@GetMapping("/testdb")
-	public ModelAndView testdb() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
-		
-		CourseDTO course = courseService.registerCourse("test", 6).orElseGet(() -> null);
-		if(course != null) {
-			System.out.println(course.getTitle());
-		}
+		mav.addObject("courses", courses);
 		return mav;
 	}
 }

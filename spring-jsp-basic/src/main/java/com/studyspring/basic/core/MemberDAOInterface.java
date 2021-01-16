@@ -3,7 +3,7 @@ package com.studyspring.basic.core;
 import com.studyspring.basic.member.MemberDTO;
 
 public interface MemberDAOInterface {
-	public MemberDTO insert(String name, String id, String password, Role role);
+	public void insert(String name, String id, String password, Role role);
 	public MemberDTO find(String id);
 	public MemberDTO vaildMember(String id, String password);
 	public int delete(String id);

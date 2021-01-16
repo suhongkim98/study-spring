@@ -16,7 +16,7 @@ public class MemberDAO implements MemberDAOInterface{
 		this.session = sqlSessionTemplate;
 	}
 	@Override
-	public MemberDTO insert(String name, String id, String password, Role role) {
+	public void insert(String name, String id, String password, Role role) {
 		MemberDTO member = new MemberDTO();
 		member.setMemberName(name);
 		member.setMemberId(id);
@@ -24,7 +24,6 @@ public class MemberDAO implements MemberDAOInterface{
 		member.setRole(role);
 		
 		session.insert("memberTable.insertMember", member); // rowid는 mapper에서 넣어지도록 지정했음
-		return member;
 	}
 
 	@Override

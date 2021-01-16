@@ -19,14 +19,13 @@ public class CourseDAO implements CourseDAOInterface{
 		this.session = sessionTemplate;
 	}
 	@Override
-	public CourseDTO insert(String title, int memberIdx) {
+	public void insert(String title, int memberIdx) {
 		CourseDTO course = new CourseDTO();
 		MemberDTO member = new MemberDTO();
 		course.setTitle(title);
 		member.setIdx(memberIdx);
 		course.setMember(member);
 		session.insert("courseTable.insertCourse", course);
-		return course;
 	}
 
 	@Override

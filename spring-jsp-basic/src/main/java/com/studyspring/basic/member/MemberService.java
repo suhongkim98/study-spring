@@ -22,12 +22,11 @@ public class MemberService implements MemberServiceInterface{
 	}
 
 	@Override
-	public Optional<MemberDTO> registerMember(RegisterRequestDTO registerRequestDTO) {
+	public void registerMember(RegisterRequestDTO registerRequestDTO) {
 		MemberDTO member = findMember(registerRequestDTO.getMemberId()).orElseGet(() -> null);
 		if(member != null) throw new RegisterFailedException("이미 해당 계정이 존재합니다.");
 		
-		member = memberDAO.insert(registerRequestDTO.getMemberName(), registerRequestDTO.getMemberId(), registerRequestDTO.getMemberPassword(), Role.USER);
-		return Optional.ofNullable(member);
+		memberDAO.insert(registerRequestDTO.getMemberName(), registerRequestDTO.getMemberId(), registerRequestDTO.getMemberPassword(), Role.USER);
 	}
 
 	@Override

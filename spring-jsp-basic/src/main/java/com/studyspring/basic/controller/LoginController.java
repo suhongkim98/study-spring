@@ -67,13 +67,7 @@ public class LoginController {
 	@PostMapping("/registerRequest")
 	public ModelAndView registerRequest(HttpSession session, RegisterRequestDTO registerRequestDTO) {
 		ModelAndView mav = new ModelAndView();
-		//service, dao 작업
-		MemberDTO member = memberService.registerMember(registerRequestDTO).get();
-		if(member != null) {
-			session.setAttribute("member", member);
-			mav.addObject("member", member);
-		}
-		//
+		memberService.registerMember(registerRequestDTO);
 		mav.setViewName("redirect:/");
 		return mav;
 	}
