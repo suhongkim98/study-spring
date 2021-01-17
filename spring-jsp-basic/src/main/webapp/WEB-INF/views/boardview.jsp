@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
  	<link href="<c:url value="/resources/css/home.css" />" rel="stylesheet">
+ 	<link href="<c:url value="/resources/css/boardView.css" />" rel="stylesheet">
  	<link href="<c:url value="/resources/css/util.css" />" rel="stylesheet">
 	<title>Home</title>
 </head>
@@ -18,8 +19,35 @@
 		<a>자율강좌</a>
 	</div>
 	<div class="main-wrapper grid-item">
-		<div class="main-inner-background">
-		
+		<div class="board-total-wrapper">
+			<div class="board-wrapper">
+				<div class="board-header">
+					<span>${board.getTitle()}</span>
+				</div>
+				<div class="board-body-wrapper">
+					<div class="board-body-header">
+					 <div><span>작성자: </span><span>${board.getMember().getMemberName()}</span></div>
+					 <div class="board-body-header-date">
+						 <div><span>작성일: </span><span>${board.getDate()}</span></div>
+						 <div><span>조회수: </span><span>${board.getViews()}</span></div>
+					 </div>
+					</div>
+					<div class="board-body">
+						<div>
+							${board.getContent()}
+						</div>
+					</div>
+					<!-- 삭제버튼은 본인한테만 보이게 -->
+					<c:if test="${member.getIdx() == board.getMember().getIdx()}">
+						<a class="button"><span>삭제</span></a>
+       				</c:if>
+					
+				</div>
+			</div>
+			<div class="input-comment-wrapper">
+			</div>
+			<div class="comment-wrapper">
+			</div>
 		</div>
 	</div>
 </body>

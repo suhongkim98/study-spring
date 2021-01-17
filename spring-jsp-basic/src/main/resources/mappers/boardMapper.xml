@@ -12,14 +12,23 @@
 	</resultMap>
 	<resultMap type="memberDTO" id="memberInBoardMap">
 		<result column="MEMBER_NAME" property="memberName" />
+		<result column="MEMBER_IDX" property="idx"/>
 	</resultMap>
 	
-	<select id="selectBoard" parameterType="int" resultMap="boardMap">
-		SELECT BTB.IDX, BTB.DATE, BTB.COURSE_IDX, BTB.VIEWS, BTB.TITLE, BTB.CONTENT, MTB.NAME AS MEMBER_NAME
+	<select id="selectBoardAll" parameterType="int" resultMap="boardMap">
+		SELECT BTB.IDX, BTB.DATE, BTB.COURSE_IDX, BTB.VIEWS, BTB.TITLE, BTB.CONTENT, MTB.NAME AS MEMBER_NAME, MTB.IDX AS MEMBER_IDX
 		FROM BOARD_TB BTB 
 		JOIN MEMBER_TB MTB ON MTB.IDX = BTB.OWNER_IDX 
 		WHERE COURSE_IDX = #{courseIdx};
 	</select>
+	<select id="selectBoard" parameterType="int" resultMap="boardMap">
+		SELECT BTB.IDX, BTB.DATE, BTB.COURSE_IDX, BTB.VIEWS, BTB.TITLE, BTB.CONTENT, MTB.NAME AS MEMBER_NAME, MTB.IDX AS MEMBER_IDX
+		FROM BOARD_TB BTB 
+		JOIN MEMBER_TB MTB ON MTB.IDX = BTB.OWNER_IDX 
+		WHERE BTB.IDX = #{boardIdx};
+	</select>
 	<insert id="insertBoard" parameterType="boardDTO" useGeneratedKeys="true" keyProperty="idx" keyColumn="IDX" >
+		INSERT INTO BOARD_TB(OWNER_IDX, COURSE_IDX, TITLE, CONTENT)
+		VALUES(#{member.idx}, #{courseIdx}, #{title}, #{content});
 	</insert>
 </mapper>

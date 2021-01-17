@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
  	<link href="<c:url value="/resources/css/home.css" />" rel="stylesheet">
+ 	<link href="<c:url value="/resources/css/course.css" />" rel="stylesheet">
  	<link href="<c:url value="/resources/css/util.css" />" rel="stylesheet">
 	<title>Course</title>
 </head>
@@ -25,13 +26,13 @@
 				<!--<a href="/basic/course/view?boardIdx=${board.getIdx()}" style="text-decoration: none;"></a>  -->
 				<div class="board-grid board-item">
 					<span>${board.getIdx()}</span>
-					<a href="/basic/course/view?boardIdx=${board.getIdx()}" class="button""><span>${board.getTitle() }</span></a>
+					<a href="/basic/course/view?boardIdx=${board.getIdx()}" class="button"><span>${board.getTitle() }</span></a>
 					<span>${board.getMember().getMemberName() }</span>
 					<span>${board.getDate() }</span>
 					<span>${board.getViews() }</span>
 				</div>
 	    	</c:forEach>
-			<div style="position: relative;"><a class="write-board-button">글쓰기</a></div>
+			<div style="position: relative;"><a class="write-board-button" href="/basic/course/write?courseIdx=${courseIdx}">글쓰기</a></div>
 		</div>
 	</div>
 </body>

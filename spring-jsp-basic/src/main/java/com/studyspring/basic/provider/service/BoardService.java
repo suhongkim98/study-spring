@@ -21,12 +21,19 @@ public class BoardService implements BoardServiceInterface{
 	@Override
 	public void registerBoard(BoardDTO board) {
 		// TODO Auto-generated method stub
-		
+		boardDAO.insertBoard(board);
 	}
 
 	@Override
-	public Optional<List<BoardDTO>> selectBoard(int courseIdx) {
-		List<BoardDTO> boards = boardDAO.selectBoard(courseIdx);
+	public Optional<List<BoardDTO>> selectBoardAll(int courseIdx) {
+		List<BoardDTO> boards = boardDAO.selectBoardAll(courseIdx);
 		return Optional.ofNullable(boards);
 	}
+
+	@Override
+	public Optional<BoardDTO> selectBoard(int boardIdx) {
+		BoardDTO board = boardDAO.selectBoard(boardIdx);
+		return Optional.ofNullable(board);
+	}
+	
 }

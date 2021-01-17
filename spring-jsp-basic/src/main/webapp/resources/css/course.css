@@ -1,0 +1,25 @@
+@charset "UTF-8";
+.board-header {
+	height: 40px;
+	background-color: #EEEEEE;
+	border: solid gray 1px;
+}
+.board-header span {
+	font-weight: 700;
+}
+.board-item {
+	height: 40px;
+	border-bottom: solid gray 1px;
+}
+.board-grid {
+	display: grid;
+	grid-template-columns: 100px 1fr 100px 100px 100px;
+	align-items: center;
+}
+.board-grid span {
+	text-align: center;
+	font-size: 1.4rem;
+}
+.board-grid span:nth-child(2) {
+	text-align: left;
+}

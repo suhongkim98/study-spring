@@ -20,13 +20,18 @@ public class BoardDAO implements BoardDAOInterface {
 	@Override
 	public void insertBoard(BoardDTO board) {
 		// TODO Auto-generated method stub
-		
+		session.insert("boardTable.insertBoard", board);
 	}
 
 	@Override
-	public List<BoardDTO> selectBoard(int courseIdx) {
-		List<BoardDTO> boards = session.selectList("boardTable.selectBoard", courseIdx);
+	public List<BoardDTO> selectBoardAll(int courseIdx) {
+		List<BoardDTO> boards = session.selectList("boardTable.selectBoardAll", courseIdx);
 		return boards;
+	}
+	@Override
+	public BoardDTO selectBoard(int boardIdx) {
+		BoardDTO board = session.selectOne("boardTable.selectBoard", boardIdx);
+		return board;
 	}
 	
 }

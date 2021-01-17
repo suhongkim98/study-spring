@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.write-form {
+	display: flex;
+	flex-direction: column;
+}
+.form-header{
+	display: grid;
+	grid-template-columns: 50px 1fr;
+}
+.form-body{
+	display: grid;
+	grid-template-columns: 50px 1fr;
+}
+.form-footer{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}

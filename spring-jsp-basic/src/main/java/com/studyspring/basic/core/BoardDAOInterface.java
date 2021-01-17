@@ -6,5 +6,6 @@ import com.studyspring.basic.provider.dto.BoardDTO;
 
 public interface BoardDAOInterface {
 	public void insertBoard(BoardDTO board);
-	public List<BoardDTO> selectBoard(int courseIdx);
+	public List<BoardDTO> selectBoardAll(int courseIdx);
+	public BoardDTO selectBoard(int boardIdx);
 }
