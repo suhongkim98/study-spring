@@ -5,8 +5,6 @@ import java.util.Set;
 
 import org.springframework.web.socket.WebSocketSession;
 
-import com.studyspring.ws.websocket.service.ChatService;
-
 public class ChatRoom {
 	//채팅방이다. 세션정보들하고 방번호, 이름을 가지고 있음
 	private String roomId;
@@ -15,16 +13,6 @@ public class ChatRoom {
 	
 	public ChatRoom() {
 		sessions = new HashSet<>();
-	}
-	public void handleActions(WebSocketSession session, ChatMessage chatMessage, ChatService chatService) {
-		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) {
-			sessions.add(session);
-			chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다");
-		}
-		sendMessage(chatMessage, chatService);
-	}
-	public <T> void sendMessage(T message, ChatService chatService) {
-		sessions.parallelStream().forEach(session -> chatService.sendMessage(session, message));
 	}
 	public String getRoomId() {
 		return roomId;
@@ -37,6 +25,12 @@ public class ChatRoom {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Set<WebSocketSession> getSessions() {
+		return sessions;
+	}
+	public void setSessions(Set<WebSocketSession> sessions) {
+		this.sessions = sessions;
 	}
 	
 }

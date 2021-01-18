@@ -12,6 +12,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.studyspring.ws.websocket.dto.ChatMessage;
 import com.studyspring.ws.websocket.dto.ChatRoom;
 
 @Service
@@ -41,10 +42,21 @@ public class ChatService {
 		return chatRoom;
 	}
 	public <T> void sendMessage(WebSocketSession session, T message) {
+		//특정  세션에게 메시지 전송한다.
 		try {
 			session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
 		} catch(IOException e) {
 			System.out.println(e);
 		}
+	}
+	public void handleAction(WebSocketSession session, ChatMessage chatMessage) {
+		//액션 처리
+		ChatRoom chatRoom = findRoomById(chatMessage.getRoomId()); // 방 정보를 받아온다.
+		
+		if(chatMessage.getType().equals(ChatMessage.MessageType.ENTER)) { // 만약 메시지 타입이 엔터라면
+			chatRoom.getSessions().add(session); // 해당 방에 세션 추가
+			chatMessage.setMessage(chatMessage.getSender() + "님이 입장했습니다");
+		}
+		chatRoom.getSessions().parallelStream().forEach(roomSession -> sendMessage(roomSession, chatMessage)); // 해당 방에 존재하는 세션들에게 메시지 전송
 	}
 }
