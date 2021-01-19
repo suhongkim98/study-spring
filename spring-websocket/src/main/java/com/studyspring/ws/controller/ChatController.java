@@ -3,27 +3,39 @@ package com.studyspring.ws.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studyspring.ws.websocket.dto.ChatRoom;
-import com.studyspring.ws.websocket.service.ChatService;
+import com.studyspring.ws.websocket.repository.ChatRepository;
 
-@RestController
+@Controller
 @RequestMapping("/chat")
 public class ChatController {
 	@Autowired
-	private ChatService chatService;
-	
-	@PostMapping
-	public ChatRoom createRoom(@RequestParam("name") String name) { //POST로 이름을 받아오면 해당 이름을 가진 방 생성 후 반환
-		return chatService.createRoom(name);
+	private ChatRepository chatRepository;
+
+	// 모든 채팅방 목록 반환
+	@GetMapping("/rooms")
+	@ResponseBody
+	public List<ChatRoom> room() {
+		return chatRepository.findAllRoom();
 	}
-	@GetMapping
-	public List<ChatRoom> findAllRoom() { // 모든 방 리스트를 찾아 반환한다.
-		return chatService.findAllRoom();
-	}
+ // 채팅방 생성
+	@PostMapping("/room")
+	@ResponseBody
+ 	public ChatRoom createRoom(@RequestParam String name) {
+	 return chatRepository.createChatRoom(name);
+ 	}
+ // 특정 채팅방 조회
+ 	@GetMapping("/room/{roomId}")
+ 	@ResponseBody
+ 	public ChatRoom roomInfo(@PathVariable String roomId) {
+ 		return chatRepository.findRoomById(roomId);
+ 	}
 }
