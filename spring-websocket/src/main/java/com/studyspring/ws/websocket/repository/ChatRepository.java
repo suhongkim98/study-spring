@@ -32,6 +32,7 @@ public class ChatRepository {
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setName(name);
 		chatRoom.setRoomId(randomId);
+		chatRoomMap.put(randomId, chatRoom);
 		return chatRoom;
 	}
 }

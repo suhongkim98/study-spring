@@ -14,7 +14,12 @@ public class StompSocketController {
 	private SimpMessageSendingOperations messagingTemplate;
 	
 	@MessageMapping("/testPub") //testPub로 들어오는 메시지 매핑
-	public void message(ChatMessage message) { //필드변수명과 이름이 일치하면 알아서 객체에 담아준다.
+	public void testWebsocket(ChatMessage message) { //필드변수명과 이름이 일치하면 알아서 객체에 담아준다.
 		messagingTemplate.convertAndSend("/topic/test", message); // test를 구독하는 구독자들에게 message 전송
+	}
+	
+	@MessageMapping("/chattingPub")
+	public void chatting(ChatMessage message) {
+		messagingTemplate.convertAndSend("/topic/" + message.getRoomId(), message); // 특정 방에 구독한 클라이언트들에게 메시지 전송
 	}
 }
