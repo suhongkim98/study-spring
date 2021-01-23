@@ -25,8 +25,6 @@ public class ChatRepository {
 		redisChannelTopicMap = new LinkedHashMap<>();
 		opsChatRooms = chatRoomRedisTemplate.opsForHash(); // redis template 주입받아서 생성
 	}
-	public ChatRepository() {
-	}
 	
 	public List<ChatRoom> getAllRoom() {
 		return opsChatRooms.values(CHAT_ROOMS);
