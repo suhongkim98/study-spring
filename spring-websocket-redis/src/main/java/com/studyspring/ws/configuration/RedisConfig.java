@@ -1,5 +1,6 @@
 package com.studyspring.ws.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,10 +8,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import com.studyspring.ws.redis.RedisChatMessageSubscriber;
 import com.studyspring.ws.websocket.dto.ChatMessage;
 import com.studyspring.ws.websocket.dto.ChatRoom;
 
@@ -21,6 +24,9 @@ public class RedisConfig {
     private String redisHost;
     @Value("${spring.redis.port}")
     private int redisPort;
+    
+    @Autowired
+    private RedisChatMessageSubscriber RedisChatMessageSubscriber;
 	@Bean
 	public RedisConnectionFactory redisConnectionFactory() {
 		LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisHost, redisPort); // 지정한 호스트와 포트로 레디스 연결
@@ -63,6 +69,15 @@ public class RedisConfig {
 		// redis 컨테이너를 생성한다.
 		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
 		container.setConnectionFactory(redisConnectionFactory());
+		
+		//리스너 추가
+		container.addMessageListener(RedisChatMessageSubscriber, redisChatTopic()); // redisChatTopic으로 들어온 메시지는 RedisChatMessageSubscriber에서 처리한다
 		return container;
+	}
+	@Bean
+	public ChannelTopic redisChatTopic() {
+		// redis 구독 채널 생성
+		ChannelTopic channelTopic = new ChannelTopic("test");
+		return channelTopic;
 	}
 }

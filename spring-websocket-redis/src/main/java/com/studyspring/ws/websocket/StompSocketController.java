@@ -15,7 +15,7 @@ public class StompSocketController {
 	
 	@MessageMapping("/chattingPub")
 	public void chatting(ChatMessage message) { //필드변수명과 이름이 일치하면 알아서 객체에 담아준다.
-		// 클라이언트가 chattingPub으로 publish요청한 메시지를 redis의 해당 룸id channel로 publish 요청한다
-		chatRedisTemplate.convertAndSend(message.getRoomId(), message);
+		// 클라이언트가 chattingPub으로 publish요청한 메시지를 redis의 test channel로 publish 요청한다
+		chatRedisTemplate.convertAndSend("test", message);
 	}
 }
