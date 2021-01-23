@@ -1,8 +1,8 @@
 package com.studyspring.ws.websocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
 import com.studyspring.ws.websocket.dto.ChatMessage;
@@ -11,15 +11,11 @@ import com.studyspring.ws.websocket.dto.ChatMessage;
 @Controller
 public class StompSocketController {
 	@Autowired
-	private SimpMessageSendingOperations messagingTemplate;
-	
-	@MessageMapping("/testPub") //testPub로 들어오는 메시지 매핑
-	public void testWebsocket(ChatMessage message) { //필드변수명과 이름이 일치하면 알아서 객체에 담아준다.
-		messagingTemplate.convertAndSend("/topic/test", message); // test를 구독하는 구독자들에게 message 전송
-	}
+	private RedisTemplate<String, ChatMessage> chatRedisTemplate;
 	
 	@MessageMapping("/chattingPub")
-	public void chatting(ChatMessage message) {
-		messagingTemplate.convertAndSend("/topic/" + message.getRoomId(), message); // 특정 방에 구독한 클라이언트들에게 메시지 전송
+	public void chatting(ChatMessage message) { //필드변수명과 이름이 일치하면 알아서 객체에 담아준다.
+		// 클라이언트가 chattingPub으로 publish요청한 메시지를 redis의 해당 룸id channel로 publish 요청한다
+		chatRedisTemplate.convertAndSend(message.getRoomId(), message);
 	}
 }

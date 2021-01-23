@@ -17,10 +17,4 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		return "home";
 	}
-	@GetMapping("/test")
-	public String testWebsocket() {
-		//이 페이지는 웹소켓-stomp 개념을 공부하기 위한 테스트 페이지입니다.
-		return "test";
-	}
-	
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RedisMessageStringSubscriber implements MessageListener {
-
+//예제
 	@Override
 	public void onMessage(Message message, byte[] pattern) {
 		System.out.println(message.toString());
