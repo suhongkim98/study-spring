@@ -12,6 +12,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.studyspring.ws.websocket.dto.ChatMessage;
+import com.studyspring.ws.websocket.dto.ChatRoom;
 
 @PropertySource("classpath:/application.properties")
 @Configuration
@@ -43,6 +44,15 @@ public class RedisConfig {
     public RedisTemplate<String, ChatMessage> chatRedisTemplate() {
     	//ChatMessage 객체 publish에 사용되는 템플릿
         RedisTemplate<String, ChatMessage> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(ChatMessage.class)); //json
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        return redisTemplate;
+    }
+    @Bean
+    public RedisTemplate<String, ChatRoom> chatRoomRedisTemplate() {
+    	//ChatRoom 객체 publish에 사용되는 템플릿
+        RedisTemplate<String, ChatRoom> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(ChatMessage.class)); //json
         redisTemplate.setConnectionFactory(redisConnectionFactory());
