@@ -27,7 +27,7 @@ public class RedisConfig {
 	}
 	@Bean
 	public RedisTemplate<String, String> stringValueRedisTemplate() {
-		//메시지 publish할 때 쓰이는 템플릿 정의
+		//String 객체 publish에 사용되는 템플릿
 		/*
 		 * Autowired로 부여한 후 
 		 * stringValueRedisTemplate.convertAndSend("ch1","hello"); //ch1채널을 구독하고 있는 Subscriber들에게 hello라는 메시지를 전송한다.
